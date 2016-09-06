@@ -1,6 +1,7 @@
 package ru.javawebinar.topjava.repository.mock;
 
 import org.springframework.stereotype.Repository;
+import org.springframework.util.Assert;
 import ru.javawebinar.topjava.model.UserMeal;
 import ru.javawebinar.topjava.repository.UserMealRepository;
 import ru.javawebinar.topjava.util.TimeUtil;
@@ -13,8 +14,8 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 
-import static ru.javawebinar.topjava.repository.mock.InMemoryUserRepositoryImpl.ADMIN_ID;
-import static ru.javawebinar.topjava.repository.mock.InMemoryUserRepositoryImpl.USER_ID;
+import static ru.javawebinar.topjava.UserTestData.ADMIN_ID;
+import static ru.javawebinar.topjava.UserTestData.USER_ID;
 
 /**
  * GKislin
@@ -38,7 +39,7 @@ public class InMemoryUserMealRepositoryImpl implements UserMealRepository {
 
     @Override
     public UserMeal save(UserMeal userMeal, int userId) {
-        Objects.requireNonNull(userMeal);
+        Assert.notNull(userMeal, "userMeal must not be null");
 
         Integer mealId = userMeal.getId();
 
@@ -75,8 +76,8 @@ public class InMemoryUserMealRepositoryImpl implements UserMealRepository {
 
     @Override
     public Collection<UserMeal> getBetween(LocalDateTime startDateTime, LocalDateTime endDateTime, int userId) {
-        Objects.requireNonNull(startDateTime);
-        Objects.requireNonNull(endDateTime);
+        Assert.notNull(startDateTime, "startDateTime must not be null");
+        Assert.notNull(endDateTime, "endDateTime  must not be null");
         return getAll(userId).stream()
                 .filter(um -> TimeUtil.isBetween(um.getDateTime(), startDateTime, endDateTime))
                 .collect(Collectors.toList());
