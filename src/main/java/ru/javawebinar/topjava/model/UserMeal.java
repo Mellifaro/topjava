@@ -11,6 +11,7 @@ import java.time.LocalDateTime;
  * GKislin
  * 11.01.2015.
  */
+@SuppressWarnings("JpaQlInspection")
 @NamedQueries({
         @NamedQuery(name = UserMeal.GET, query = "SELECT m FROM UserMeal m WHERE m.id=:id AND m.user.id=:userId"),
         @NamedQuery(name = UserMeal.ALL_SORTED, query = "SELECT m FROM UserMeal m WHERE m.user.id=:userId ORDER BY m.dateTime DESC"),
@@ -27,7 +28,7 @@ public class UserMeal extends BaseEntity {
     public static final String GET = "UserMeal.get";
     public static final String ALL_SORTED = "UserMeal.getAll";
     public static final String DELETE = "UserMeal.delete";
-    public static final String GET_BETWEEN = "UserMeal.getBetween";;
+    public static final String GET_BETWEEN = "UserMeal.getBetween";
 
     @Column(name = "date_time", nullable = false)
     private LocalDateTime dateTime;
